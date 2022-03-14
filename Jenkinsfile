@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo '----------------building image of source code---------'
-                sh 'docker build -t python-custom-image:{$BUILD_NUMBER} .'
+                sh 'docker build -t 700085/jenkins-demo:latest .'
             }
         }
         stage('Login') {
@@ -26,7 +26,7 @@ pipeline {
         stage('Push') {
             steps {
                 echo '--------------------------Image pushed to Docker-Hub successfully----------------'
-                sh 'docker push 700085/demo_repo:python-custom-image:{$BUILD_NUMBER}'
+                sh 'docker push 700085/jenkins-demo:latest'
             }
         }
     }
