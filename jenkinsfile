@@ -7,21 +7,25 @@ pipeline {
     stages {
         stage('gitclone') {
             steps {
+                echo '-----------------pulling code from source-------------------'
                 git 'git@gitlab.com:sachin.gangil/jenkins-demo.git'
             }
         }
         stage('Build') {
             steps {
+                echo '----------------building image of source code---------'
                 sh 'docker build -t python-custom-image:{$BUILD_NUMBER} .'
             }
         }
         stage('Login') {
             steps {
+                echo '---------------------Logging in Docker-Hub to push the builded image--------------------'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('Push') {
             steps {
+                echo '--------------------------Image pushed to Docker-Hub successfully----------------'
                 sh 'docker push 700085/demo_repo:python-custom-image:{$BUILD_NUMBER}'
             }
         }
